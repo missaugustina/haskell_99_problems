@@ -24,6 +24,15 @@ isPalindrome xs = xs == (reverse xs)
 -- before i realized i could compare 2 lists
 isPalindrome' xs = not $ elem False $ map (\x -> fst x == snd x) $ zip (take ((length xs) `div` 2) xs) (reverse $ drop ((length xs) `div` 2) xs)
 
+isPalindrome'' xs = and $ zipWith (==) start (reverse end)
+    where (start, end) = splitAt (length xs `div` 2) xs
+
+isPalindrome''' xs = start == end
+    where
+      half = length xs `div` 2
+      start = take half xs
+      end = take half (reverse xs)
+
 -- flatten a nested list or element
 data NestedList a = Elem a | List [NestedList a]
 flatten :: NestedList a -> [a]
